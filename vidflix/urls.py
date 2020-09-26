@@ -1,12 +1,14 @@
-
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from api.models import MovieResource, GenreResource
 
+movie_resource = MovieResource
+genre_resource = GenreResource()
 
-# collection of valid router for rental app
 urlpatterns = [
-    path('', views.index, name="root"),
-    path('test', views.test, name="test"),
-    path('home/something', views.index, name="long"),
-    path('details', views.details, name="long")
+    path('admin/', admin.site.urls),
+    path('', include('rental.urls')),
+    path('api/', include(movie_resource.urls)),
+    path('api/', include(genre_resource.urls))
 ]
+
